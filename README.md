@@ -1,4 +1,3 @@
- improve README with full project documentation
 # 🕯️ Soule Candle Website
 
 A modern and elegant frontend website for a candle brand, built using HTML, CSS, JavaScript, and Tailwind CSS.
@@ -6,6 +5,9 @@ A modern and elegant frontend website for a candle brand, built using HTML, CSS,
 This project demonstrates dynamic content rendering using a local JSON file — without any backend framework or database.
 
 ---
+## 🌐 Live Demo
+
+👉 https://yourusername.github.io/soule-candle-website/
 
 ## ✨ Features
 
