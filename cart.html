@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | Soul Candles ✨</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        amber: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #fcd34d; border-radius: 4px; }
+        .dark ::-webkit-scrollbar-thumb { background: #78350f; }
+        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    </style>
+</head>
+<body class="bg-amber-50 text-amber-900 dark:bg-neutral-900 dark:text-amber-100 transition-colors duration-300 font-sans antialiased">
+
+    <div id="nav-placeholder"></div>
+
+    <main class="pt-24 pb-20 px-4 max-w-7xl mx-auto min-h-screen">
+        <h1 class="font-serif text-4xl font-bold mb-8 dark:text-white">Shopping Cart</h1>
+        
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- Cart Items -->
+            <div class="lg:col-span-2">
+                <div id="cart-items" class="space-y-4">
+                    <!-- Cart items injected here -->
+                </div>
+                
+                <div id="empty-cart" class="hidden text-center py-16">
+                    <i class="ph ph-shopping-bag text-6xl text-amber-300 mb-4"></i>
+                    <p class="text-xl text-amber-600 dark:text-amber-300 mb-4">Your cart is empty</p>
+                    <a href="shop.html" class="inline-block bg-amber-800 text-white px-6 py-3 rounded-lg font-medium hover:bg-amber-900 transition-colors">Continue Shopping</a>
+                </div>
+                
+                <a href="shop.html" class="inline-flex items-center gap-2 text-amber-600 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-200 mt-6">
+                    <i class="ph ph-arrow-left"></i> Continue Shopping
+                </a>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="lg:col-span-1">
+                <div class="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-sm border border-amber-100 dark:border-neutral-700 sticky top-24">
+                    <h2 class="font-serif text-xl font-bold mb-6 dark:text-white">Order Summary</h2>
+                    
+                    <!-- Promo Code -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-amber-700 dark:text-amber-300 mb-2">Promo Code</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="promo-input" placeholder="Try GLOW10" class="flex-1 px-4 py-2 rounded-lg bg-amber-50 dark:bg-neutral-900 border border-amber-200 dark:border-neutral-700 focus:border-amber-500 outline-none dark:text-white uppercase">
+                            <button onclick="applyPromo()" class="bg-amber-800 text-white px-4 py-2 rounded-lg font-medium hover:bg-amber-900 transition-colors">Apply</button>
+                        </div>
+                        <p id="promo-message" class="text-sm mt-2 hidden"></p>
+                    </div>
+
+                    <!-- Totals -->
+                    <div class="space-y-3 border-t border-amber-100 dark:border-neutral-700 pt-4">
+                        <div class="flex justify-between text-amber-600 dark:text-amber-400">
+                            <span>Subtotal</span>
+                            <span id="subtotal">$0.00</span>
+                        </div>
+                        <div class="flex justify-between text-amber-600 dark:text-amber-400">
+                            <span>Shipping</span>
+                            <span id="shipping">Free</span>
+                        </div>
+                        <div id="discount-row" class="flex justify-between text-green-600 hidden">
+                            <span>Discount</span>
+                            <span id="discount-amount">-$0.00</span>
+                        </div>
+                        <div class="flex justify-between text-xl font-bold pt-3 border-t border-amber-100 dark:border-neutral-700">
+                            <span class="dark:text-white">Total</span>
+                            <span id="total" class="dark:text-white">$0.00</span>
+                        </div>
+                    </div>
+
+                    <button onclick="goToCheckout()" class="w-full bg-amber-800 text-white py-4 rounded-lg font-medium hover:bg-amber-900 transition-colors shadow-lg mt-6 flex items-center justify-center gap-2">
+                        <span>Proceed to Checkout</span>
+                        <i class="ph-bold ph-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="shared.js"></script>
+    <script>
+        let currentDiscount = 0;
+        
+        function renderCart() {
+            const container = document.getElementById('cart-items');
+            const emptyCart = document.getElementById('empty-cart');
+            const cart = getCart();
+            
+            if (cart.length === 0) {
+                container.innerHTML = '';
+                emptyCart.classList.remove('hidden');
+                updateTotals(0);
+                return;
+            }
+            
+            emptyCart.classList.add('hidden');
+            
+            container.innerHTML = cart.map(item => `
+                <div class="bg-white dark:bg-neutral-800 rounded-2xl p-4 shadow-sm border border-amber-100 dark:border-neutral-700 flex gap-4">
+                    <img src="${item.image}" class="w-24 h-36 object-cover rounded-lg bg-amber-100 dark:bg-neutral-700" alt="${item.title}">
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-xs text-amber-600 dark:text-amber-400 uppercase tracking-wider">${item.genre}</p>
+                                <h3 class="font-serif text-lg font-bold dark:text-white line-clamp-2">${item.title}</h3>
+                                <p class="text-sm text-amber-600 dark:text-amber-400">${item.author}</p>
+                            </div>
+                            <button onclick="removeItem(${item.id})" class="text-amber-400 hover:text-red-500">
+                                <i class="ph ph-trash text-xl"></i>
+                            </button>
+                        </div>
+                        <div class="flex items-center justify-between mt-4">
+                            <div class="flex items-center gap-3">
+                                <button onclick="updateQty(${item.id}, -1)" class="w-8 h-8 rounded-full bg-amber-100 dark:bg-neutral-700 flex items-center justify-center hover:bg-amber-200 dark:text-white">-</button>
+                                <span class="font-medium dark:text-white w-8 text-center">${item.qty}</span>
+                                <button onclick="updateQty(${item.id}, 1)" class="w-8 h-8 rounded-full bg-amber-100 dark:bg-neutral-700 flex items-center justify-center hover:bg-amber-200 dark:text-white">+</button>
+                            </div>
+                            <p class="font-bold text-lg dark:text-white">$${(item.price * item.qty).toFixed(2)}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            updateTotals();
+        }
+        
+        function updateQty(productId, change) {
+            updateCartQty(productId, change);
+            renderCart();
+            updateNavCounts();
+        }
+        
+        function removeItem(productId) {
+            removeFromCart(productId);
+            renderCart();
+            updateNavCounts();
+        }
+        
+        function updateTotals() {
+            const subtotal = getCartTotal();
+            const discount = subtotal * currentDiscount;
+            const total = subtotal - discount;
+            
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+            
+            if (currentDiscount > 0) {
+                document.getElementById('discount-row').classList.remove('hidden');
+                document.getElementById('discount-amount').textContent = `-$${discount.toFixed(2)}`;
+            } else {
+                document.getElementById('discount-row').classList.add('hidden');
+            }
+        }
+        
+        function applyPromo() {
+            const input = document.getElementById('promo-input');
+            const code = input.value.trim();
+            const message = document.getElementById('promo-message');
+            
+            if (!code) return;
+            
+            const discount = applyPromoCode(code);
+            
+            if (discount) {
+                currentDiscount = discount;
+                message.textContent = `Promo applied! ${(discount * 100).toFixed(0)}% off`;
+                message.className = 'text-sm mt-2 text-green-600';
+                message.classList.remove('hidden');
+                updateTotals();
+            } else {
+                currentDiscount = 0;
+                message.textContent = 'Invalid promo code';
+                message.className = 'text-sm mt-2 text-red-500';
+                message.classList.remove('hidden');
+                updateTotals();
+            }
+        }
+        
+        function goToCheckout() {
+            const cart = getCart();
+            if (cart.length === 0) {
+                showToast('Your cart is empty', 'error');
+                return;
+            }
+            
+            const checkoutData = {
+                items: cart,
+                subtotal: getCartTotal(),
+                discount: getCartTotal() * currentDiscount,
+                total: getCartTotal() * (1 - currentDiscount),
+                promoCode: currentDiscount > 0 ? document.getElementById('promo-input').value : null
+            };
+            localStorage.setItem('wickglow_checkout', JSON.stringify(checkoutData));
+            
+            if (!isLoggedIn()) {
+                window.location.href = 'auth.html?redirect=checkout.html';
+                return;
+            }
+            
+            window.location.href = 'checkout.html';
+        }
+        
+        window.addEventListener('dbReady', renderCart);
+    </script>
+</body>
+</html>

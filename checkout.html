@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Soul Candles ✨</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        amber: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #fcd34d; border-radius: 4px; }
+        .dark ::-webkit-scrollbar-thumb { background: #78350f; }
+        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    </style>
+</head>
+<body class="bg-amber-50 text-amber-900 dark:bg-neutral-900 dark:text-amber-100 transition-colors duration-300 font-sans antialiased">
+
+    <div id="nav-placeholder"></div>
+
+    <main class="pt-24 pb-20 px-4 max-w-7xl mx-auto min-h-screen">
+        <!-- Progress Steps -->
+        <div class="mb-10">
+            <div class="flex items-center justify-center max-w-2xl mx-auto">
+                <div class="flex items-center flex-1">
+                    <div class="w-10 h-10 rounded-full bg-amber-800 text-white flex items-center justify-center font-bold">1</div>
+                    <div class="flex-1 h-1 bg-amber-800 mx-2"></div>
+                </div>
+                <div class="flex items-center flex-1">
+                    <div class="w-10 h-10 rounded-full bg-amber-800 text-white flex items-center justify-center font-bold">2</div>
+                    <div class="flex-1 h-1 bg-amber-200 dark:bg-neutral-700 mx-2"></div>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-amber-200 dark:bg-neutral-700 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold">3</div>
+                </div>
+            </div>
+            <div class="flex justify-center max-w-2xl mx-auto mt-2 text-sm">
+                <span class="flex-1 text-center font-medium text-amber-800 dark:text-amber-200">Cart</span>
+                <span class="flex-1 text-center font-medium text-amber-800 dark:text-amber-200">Details</span>
+                <span class="text-center text-amber-400 dark:text-amber-500">Confirm</span>
+            </div>
+        </div>
+
+        <h1 class="font-serif text-4xl font-bold mb-8 text-center dark:text-white">Checkout</h1>
+        
+        <div class="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <!-- Shipping Form -->
+            <div>
+                <div class="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-sm border border-amber-100 dark:border-neutral-700">
+                    <h2 class="font-serif text-xl font-bold mb-6 dark:text-white flex items-center gap-2">
+                        <i class="ph ph-truck"></i> Shipping Details
+                    </h2>
+                    
+                    <form id="checkout-form" class="space-y-5">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-amber-700 dark:text-amber-300 mb-2">First Name *</label>
+                                <input type="text" name="firstName" required class="w-full px-4 py-3 rounded-lg bg-amber-50 dark:bg-neutral-900 border border-amber-200 dark:border-neutral-700 focus:border-amber-500 outline-none dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-amber-700 dark:text-amber-300 mb-2">Last Name *</label>
+                                <input type="text" name="lastName" required class="w-full px-4 py-3 rounded-lg bg-amber-50 dark:bg-neutral-900 border border-amber-200 dark:border-neutral-700 focus:border-amber-500 outline-none dark:text-white">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-amber-700 dark:text-amber-300 mb-2">Email *</label>
+                            <input type="email" name="email" required class="w-full px-4 py-3 rounded-lg bg-amber-50 dark:bg-neutral-900 border border-amber-200 dark:border-neutral-700 focus:border-amber-500 outline-none dark:text-white">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-amber-700 dark:text-amber-300 mb-2">Phone *</label>
+                            <input type="tel" name="phone" required class="w-full px-4 py-3 rounded-lg bg-amber-50 dark:bg-neutral-900 border border-amber-200 dark:border-neutral-700 focus:border-amber-500 outline-none dark:text-white">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-amber-700 dark:text-amber-300 mb-2">Address *</label>
+                            <input type="text" name="address" required placeholder="Street address" class="w-full px-4 py-3 rounded-lg bg-amber-50 dark:bg-neutral-900 border border-amber-200 dark:border-neutral-700 focus:border-amber-500 outline-none dark:text-white mb-3">
+                            <input type="text" name="apartment" placeholder="Apartment, suite, etc. (optional)" class="w-full px-4 py-3 rounded-lg bg-amber-50 dark:bg-neutral-900 border border-amber-200 dark:border-neutral-700 focus:border-amber-500 outline-none dark:text-white">
+                        </div>
+                        
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-amber-700 dark:text-amber-300 mb-2">City *</label>
+                                <input type="text" name="city" required class="w-full px-4 py-3 rounded-lg bg-amber-50 dark:bg-neutral-900 border border-amber-200 dark:border-neutral-700 focus:border-amber-500 outline-none dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-amber-700 dark:text-amber-300 mb-2">State *</label>
+                                <input type="text" name="state" required class="w-full px-4 py-3 rounded-lg bg-amber-50 dark:bg-neutral-900 border border-amber-200 dark:border-neutral-700 focus:border-amber-500 outline-none dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-amber-700 dark:text-amber-300 mb-2">ZIP *</label>
+                                <input type="text" name="zip" required class="w-full px-4 py-3 rounded-lg bg-amber-50 dark:bg-neutral-900 border border-amber-200 dark:border-neutral-700 focus:border-amber-500 outline-none dark:text-white">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Payment Method -->
+                <div class="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-sm border border-amber-100 dark:border-neutral-700 mt-6">
+                    <h2 class="font-serif text-xl font-bold mb-6 dark:text-white flex items-center gap-2">
+                        <i class="ph ph-credit-card"></i> Payment Method
+                    </h2>
+                    
+                    <div class="space-y-3">
+                        <label class="flex items-center p-4 border border-amber-200 dark:border-neutral-700 rounded-lg cursor-pointer hover:bg-amber-50 dark:hover:bg-neutral-700 transition-colors">
+                            <input type="radio" name="payment" value="card" checked class="mr-3 text-amber-800 focus:ring-amber-500">
+                            <div class="flex-1">
+                                <p class="font-medium dark:text-white">Credit Card</p>
+                                <p class="text-sm text-amber-500 dark:text-amber-400">Visa, Mastercard, Amex</p>
+                            </div>
+                            <div class="flex gap-2">
+                                <i class="ph-fill ph-credit-card text-2xl text-amber-400"></i>
+                            </div>
+                        </label>
+                        
+                        <label class="flex items-center p-4 border border-amber-200 dark:border-neutral-700 rounded-lg cursor-pointer hover:bg-amber-50 dark:hover:bg-neutral-700 transition-colors">
+                            <input type="radio" name="payment" value="paypal" class="mr-3 text-amber-800 focus:ring-amber-500">
+                            <div class="flex-1">
+                                <p class="font-medium dark:text-white">PayPal</p>
+                                <p class="text-sm text-amber-500 dark:text-amber-400">Pay with your PayPal account</p>
+                            </div>
+                            <i class="ph-fill ph-paypal-logo text-2xl text-blue-500"></i>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div>
+                <div class="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-sm border border-amber-100 dark:border-neutral-700 sticky top-24">
+                    <h2 class="font-serif text-xl font-bold mb-6 dark:text-white">Order Summary</h2>
+                    
+                    <!-- Items -->
+                    <div id="order-items" class="space-y-4 mb-6 max-h-64 overflow-y-auto">
+                        <!-- Items injected here -->
+                    </div>
+                    
+                    <!-- Totals -->
+                    <div class="space-y-3 border-t border-amber-100 dark:border-neutral-700 pt-4">
+                        <div class="flex justify-between text-amber-600 dark:text-amber-400">
+                            <span>Subtotal</span>
+                            <span id="summary-subtotal">$0.00</span>
+                        </div>
+                        <div class="flex justify-between text-amber-600 dark:text-amber-400">
+                            <span>Shipping</span>
+                            <span>Free</span>
+                        </div>
+                        <div id="summary-discount-row" class="flex justify-between text-green-600 hidden">
+                            <span>Discount</span>
+                            <span id="summary-discount">-$0.00</span>
+                        </div>
+                        <div class="flex justify-between text-xl font-bold pt-3 border-t border-amber-100 dark:border-neutral-700">
+                            <span class="dark:text-white">Total</span>
+                            <span id="summary-total" class="dark:text-white">$0.00</span>
+                        </div>
+                    </div>
+
+                    <button onclick="placeOrder()" class="w-full bg-amber-800 text-white py-4 rounded-lg font-medium hover:bg-amber-900 transition-colors shadow-lg mt-6 flex items-center justify-center gap-2">
+                        <span>Place Order</span>
+                        <i class="ph-bold ph-lock-key"></i>
+                    </button>
+                    
+                    <p class="text-center text-sm text-amber-500 dark:text-amber-400 mt-4">
+                        <i class="ph-fill ph-shield-check mr-1"></i>
+                        Your information is secure and encrypted
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="shared.js"></script>
+    <script>
+        if (!requireAuth()) {
+            throw new Error('Not authenticated');
+        }
+        
+        let checkoutData = null;
+        
+        function loadCheckoutData() {
+            checkoutData = JSON.parse(localStorage.getItem('wickglow_checkout'));
+            
+            if (!checkoutData || !checkoutData.items || checkoutData.items.length === 0) {
+                window.location.href = 'cart.html';
+                return;
+            }
+            
+            // Pre-fill user data
+            const user = getCurrentUser();
+            if (user) {
+                document.querySelector('input[name="email"]').value = user.email || '';
+                document.querySelector('input[name="phone"]').value = user.phone || '';
+                const nameParts = (user.name || '').split(' ');
+                document.querySelector('input[name="firstName"]').value = nameParts[0] || '';
+                document.querySelector('input[name="lastName"]').value = nameParts.slice(1).join(' ') || '';
+                document.querySelector('input[name="address"]').value = user.address || '';
+            }
+            
+            // Render items
+            const container = document.getElementById('order-items');
+            container.innerHTML = checkoutData.items.map(item => `
+                <div class="flex gap-4">
+                    <img src="${item.image}" class="w-12 h-18 object-cover rounded bg-amber-100 dark:bg-neutral-700" alt="${item.title}">
+                    <div class="flex-1">
+                        <h4 class="font-medium text-sm dark:text-white line-clamp-2">${item.title}</h4>
+                        <p class="text-xs text-amber-500 dark:text-amber-400">Qty: ${item.qty}</p>
+                    </div>
+                    <p class="font-medium dark:text-white">$${(item.price * item.qty).toFixed(2)}</p>
+                </div>
+            `).join('');
+            
+            // Update totals
+            document.getElementById('summary-subtotal').textContent = `$${checkoutData.subtotal.toFixed(2)}`;
+            document.getElementById('summary-total').textContent = `$${checkoutData.total.toFixed(2)}`;
+            
+            if (checkoutData.discount > 0) {
+                document.getElementById('summary-discount-row').classList.remove('hidden');
+                document.getElementById('summary-discount').textContent = `-$${checkoutData.discount.toFixed(2)}`;
+            }
+        }
+        
+        function placeOrder() {
+            const form = document.getElementById('checkout-form');
+            
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            
+            const formData = new FormData(form);
+            const shippingDetails = {
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                address: formData.get('address'),
+                apartment: formData.get('apartment'),
+                city: formData.get('city'),
+                state: formData.get('state'),
+                zip: formData.get('zip'),
+                payment: document.querySelector('input[name="payment"]:checked').value
+            };
+            
+            const btn = event.target;
+            btn.innerHTML = '<div class="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full"></div> Processing...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                const user = getCurrentUser();
+                const db = getDB();
+                const userIndex = db.users.findIndex(u => u.id === user.id);
+                
+                const newOrder = {
+                    id: `ORD-${Math.floor(Math.random() * 100000)}`,
+                    date: new Date().toISOString().split('T')[0],
+                    status: "processing",
+                    total: checkoutData.total,
+                    subtotal: checkoutData.subtotal,
+                    discount: checkoutData.discount,
+                    items: checkoutData.items.map(i => i.title),
+                    shipping: shippingDetails
+                };
+                
+                if (!db.users[userIndex].orders) db.users[userIndex].orders = [];
+                db.users[userIndex].orders.unshift(newOrder);
+                saveDB(db);
+                
+                localStorage.setItem('wickglow_session', JSON.stringify(db.users[userIndex]));
+                
+                clearCart();
+                localStorage.removeItem('wickglow_checkout');
+                localStorage.setItem('wickglow_last_order', JSON.stringify(newOrder));
+                
+                window.location.href = 'confirmation.html';
+            }, 2000);
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCheckoutData();
+        });
+    </script>
+</body>
+</html>

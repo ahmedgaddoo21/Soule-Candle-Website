@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soul Candles ✨</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        amber: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+                        slideUp: { '0%': { transform: 'translateY(20px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #fcd34d; border-radius: 4px; }
+        .dark ::-webkit-scrollbar-thumb { background: #78350f; }
+        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); }
+        .dark .glass { background: rgba(30, 30, 30, 0.7); }
+        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    </style>
+</head>
+<body class="bg-amber-50 text-amber-900 dark:bg-neutral-900 dark:text-amber-100 transition-colors duration-300 font-sans antialiased">
+
+    <div id="nav-placeholder"></div>
+
+    <main class="pt-20">
+        <!-- Hero -->
+        <section class="relative h-[90vh] flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img src="./image/candel.jpg" class="w-full h-full object-cover" alt="Library">
+                <div class="absolute inset-0 bg-black bg-opacity-50 dark:bg-opacity-70"></div>
+            </div>
+            <div class="relative z-10 text-center text-white px-4 max-w-4xl mx-auto animate-slide-up">
+                <p class="text-sm md:text-base tracking-[0.3em] uppercase mb-4 text-amber-200">Handcrafted with Intention</p>
+                <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">Light Your<br/>Moments</h1>
+                <p class="text-lg md:text-xl mb-10 text-amber-100 max-w-2xl mx-auto font-light">Artisan candles made with pure soy wax, essential oils, and cotton wicks. Transform your space into a sanctuary.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="shop.html" class="bg-white text-amber-900 px-8 py-4 rounded-full font-medium hover:bg-amber-100 transition-colors transform hover:scale-105 text-center">Shop Collection</a>
+                    <a href="#bestsellers" class="border-2 border-white text-white px-8 py-4 rounded-full font-medium hover:bg-white hover:text-amber-900 transition-colors text-center">View Bestsellers</a>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="bestsellers" class="py-20 px-4 max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4 dark:text-white">Bestsellers</h2>
+                <p class="text-amber-700 dark:text-amber-300">Our most loved scents this season</p>
+            </div>
+            <div id="featured-candles" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Candles loaded by JS -->
+            </div>
+            <div class="text-center mt-12">
+                <a href="shop.html" class="inline-flex items-center gap-2 text-amber-800 dark:text-amber-200 font-medium hover:gap-3 transition-all">
+                    View All Candles <i class="ph ph-arrow-right"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section id="about" class="bg-amber-100 dark:bg-neutral-800 py-20">
+            <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+                <div class="p-6">
+                    <div class="w-16 h-16 bg-amber-200 dark:bg-neutral-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ph ph-leaf text-3xl text-amber-800 dark:text-amber-200"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold mb-2 dark:text-white">100% Soy Wax</h3>
+                    <p class="text-sm text-amber-700 dark:text-amber-400">Clean burning, eco-friendly, and long-lasting</p>
+                </div>
+                <div class="p-6">
+                    <div class="w-16 h-16 bg-amber-200 dark:bg-neutral-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ph ph-drop text-3xl text-amber-800 dark:text-amber-200"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold mb-2 dark:text-white">Essential Oils</h3>
+                    <p class="text-sm text-amber-700 dark:text-amber-400">Premium fragrance blends for authentic scents</p>
+                </div>
+                <div class="p-6">
+                    <div class="w-16 h-16 bg-amber-200 dark:bg-neutral-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ph ph-hand-heart text-3xl text-amber-800 dark:text-amber-200"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold mb-2 dark:text-white">Hand-Poured</h3>
+                    <p class="text-sm text-amber-700 dark:text-amber-400">Crafted in small batches with care</p>
+                </div>
+                <div class="p-6">
+                    <div class="w-16 h-16 bg-amber-200 dark:bg-neutral-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ph ph-truck text-3xl text-amber-800 dark:text-amber-200"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold mb-2 dark:text-white">Free Shipping</h3>
+                    <p class="text-sm text-amber-700 dark:text-amber-400">On orders over $50</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter -->
+        <section id="contact" class="py-20 px-4 max-w-4xl mx-auto text-center">
+            <h2 class="font-serif text-4xl font-bold mb-4 dark:text-white">Join the Inner Circle</h2>
+            <p class="text-amber-700 dark:text-amber-300 mb-8">Get exclusive access to new scents, seasonal collections, and member-only offers</p>
+            <form onsubmit="event.preventDefault(); showToast('Welcome to the circle!'); this.reset();" class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                <input type="email" placeholder="Your email address" required class="flex-1 px-6 py-4 rounded-full bg-white dark:bg-neutral-800 border border-amber-200 dark:border-neutral-700 focus:border-amber-500 outline-none dark:text-white">
+                <button type="submit" class="bg-amber-800 text-white px-8 py-4 rounded-full font-medium hover:bg-amber-900 transition-colors">Subscribe</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="bg-amber-900 text-amber-100 py-12 dark:bg-black">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="ph-fill ph-candle text-2xl text-amber-400 mr-2"></i>
+                        <span class="font-serif text-xl font-bold">Wick & Glow</span>
+                    </div>
+                    <p class="text-amber-300 text-sm">Handcrafted candles for mindful moments. Made with love and intention.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Shop</h4>
+                    <ul class="space-y-2 text-sm text-amber-300">
+                        <li><a href="shop.html" class="hover:text-white">All Candles</a></li>
+                        <li><a href="shop.html" class="hover:text-white">Bestsellers</a></li>
+                        <li><a href="shop.html" class="hover:text-white">Gift Sets</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Help</h4>
+                    <ul class="space-y-2 text-sm text-amber-300">
+                        <li><a href="#" class="hover:text-white">Candle Care</a></li>
+                        <li><a href="#" class="hover:text-white">Shipping</a></li>
+                        <li><a href="#" class="hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Follow Us</h4>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-amber-800 flex items-center justify-center hover:bg-amber-700 transition-colors">
+                            <i class="ph-fill ph-instagram-logo"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-amber-800 flex items-center justify-center hover:bg-amber-700 transition-colors">
+                            <i class="ph-fill ph-tiktok-logo"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-amber-800 pt-8 text-center text-sm text-amber-400">
+                &copy; 2026 Wick & Glow. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="shared.js"></script>
+    <script>
+        window.addEventListener('dbReady', () => {
+            const db = getDB();
+            const featured = db.products.slice(0, 4);
+            const container = document.getElementById('featured-candles');
+            
+            if (container && featured.length > 0) {
+                container.innerHTML = featured.map(candle => `
+                    <div class="group bg-white dark:bg-neutral-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-amber-100 dark:border-neutral-700">
+                        <div class="relative overflow-hidden aspect-[2/3]">
+                            <img src="${candle.image}" alt="${candle.title}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <a href="shop.html" class="absolute bottom-4 left-4 right-4 bg-white dark:bg-neutral-900 text-amber-900 dark:text-white py-2 rounded-lg font-medium text-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                                Quick View
+                            </a>
+                        </div>
+                        <div class="p-4">
+                            <p class="text-xs text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-1">${candle.genre}</p>
+                            <h3 class="font-serif font-bold text-lg dark:text-white line-clamp-2">${candle.title}</h3>
+                            <p class="text-sm text-amber-700 dark:text-amber-400 mb-2">${candle.author}</p>
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-lg dark:text-white">$${candle.price.toFixed(2)}</span>
+                                <div class="flex items-center gap-1 text-yellow-500 text-sm">
+                                    <i class="ph-fill ph-star"></i>
+                                    <span>${candle.rating}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        });
+    </script>
+</body>
+</html>

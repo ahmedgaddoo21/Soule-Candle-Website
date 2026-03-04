@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Candles | Soul Candles ✨</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        amber: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #fcd34d; border-radius: 4px; }
+        .dark ::-webkit-scrollbar-thumb { background: #78350f; }
+        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); }
+        .dark .glass { background: rgba(30, 30, 30, 0.7); }
+        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .animate-fade-in { animation: fadeIn 0.3s ease-out; }
+    </style>
+</head>
+<body class="bg-amber-50 text-amber-900 dark:bg-neutral-900 dark:text-amber-100 transition-colors duration-300 font-sans antialiased">
+
+    <div id="nav-placeholder"></div>
+
+    <main class="pt-24 pb-20 px-4 max-w-7xl mx-auto min-h-screen">
+        <div class="mb-12">
+            <h1 class="font-serif text-4xl md:text-5xl font-bold mb-4 dark:text-white">Shop Collection</h1>
+            <p class="text-amber-700 dark:text-amber-300 max-w-2xl">Discover your signature scent from our handcrafted collection.</p>
+        </div>
+
+        <!-- Filters -->
+        <div class="flex flex-wrap gap-4 mb-10 items-center justify-between">
+            <div class="flex gap-2 overflow-x-auto pb-2" id="category-filters">
+                <button class="filter-btn active px-4 py-2 rounded-full text-sm font-medium bg-amber-800 text-white transition-colors" data-filter="all">All Candles</button>
+                <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-amber-100 dark:bg-neutral-800 text-amber-800 dark:text-amber-200 hover:bg-amber-200 transition-colors" data-filter="scented">Scented</button>
+                <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-amber-100 dark:bg-neutral-800 text-amber-800 dark:text-amber-200 hover:bg-amber-200 transition-colors" data-filter="unscented">Unscented</button>
+            </div>
+            <div class="relative">
+                <i class="ph ph-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-amber-400"></i>
+                <input type="text" id="search-input" placeholder="Search by scent or mood..." class="pl-10 pr-4 py-2 rounded-full bg-white dark:bg-neutral-800 border border-amber-200 dark:border-neutral-700 focus:outline-none focus:border-amber-500 w-full md:w-64 dark:text-white">
+            </div>
+        </div>
+
+        <!-- Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="candles-grid">
+            <!-- Candles injected by JS -->
+        </div>
+        
+        <div id="no-results" class="hidden text-center py-20">
+            <i class="ph ph-magnifying-glass text-6xl text-amber-300 mb-4"></i>
+            <p class="text-xl text-amber-600 dark:text-amber-300">No candles found.</p>
+        </div>
+    </main>
+
+    <script src="shared.js"></script>
+    <script>
+        let allCandles = [];
+        
+        function createCandleCard(candle) {
+            const inWishlist = isInWishlist(candle.id);
+            
+            return `
+                <div class="group bg-white dark:bg-neutral-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-amber-100 dark:border-neutral-700 flex flex-col">
+                    <div class="relative overflow-hidden aspect-[2/3]">
+                        <img src="${candle.image}" alt="${candle.title}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <button onclick="toggleCandleWishlist(${candle.id}, this)" class="absolute top-3 right-3 w-10 h-10 rounded-full bg-white dark:bg-neutral-900 shadow-md flex items-center justify-center transform -translate-y-14 group-hover:translate-y-0 transition-transform duration-300 hover:scale-110 z-10">
+                            <i class="${inWishlist ? 'ph-fill ph-heart text-red-500' : 'ph ph-heart text-amber-400'} text-xl" data-wishlist-id="${candle.id}"></i>
+                        </button>
+                        <button onclick="addCandleToCart(${candle.id})" class="absolute bottom-4 left-4 right-4 bg-white dark:bg-neutral-900 text-amber-900 dark:text-white py-3 rounded-lg font-medium shadow-lg transform translate-y-20 group-hover:translate-y-0 transition-transform duration-300 hover:bg-amber-50 dark:hover:bg-neutral-700 flex items-center justify-center gap-2">
+                            <i class="ph ph-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col">
+                        <p class="text-xs text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-1">${candle.genre}</p>
+                        <h3 class="font-serif text-lg font-bold dark:text-white line-clamp-2 mb-1">${candle.title}</h3>
+                        <p class="text-sm text-amber-700 dark:text-amber-400 mb-2">by ${candle.author}</p>
+                        <p class="text-xs text-amber-500 dark:text-amber-500 mb-3">${candle.pages}hr burn time</p>
+                        <div class="flex items-center justify-between mt-auto">
+                            <span class="font-bold text-lg dark:text-white">$${candle.price.toFixed(2)}</span>
+                            <div class="flex items-center gap-1 text-yellow-500 text-sm">
+                                <i class="ph-fill ph-star"></i>
+                                <span class="text-amber-700 dark:text-amber-300">${candle.rating}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function toggleCandleWishlist(candleId, btn) {
+            const list = toggleWishlist(candleId);
+            const inList = list.includes(candleId);
+            const icon = btn.querySelector('i');
+            
+            if (inList) {
+                icon.classList.remove('ph-heart', 'text-amber-400');
+                icon.classList.add('ph-fill', 'ph-heart', 'text-red-500');
+            } else {
+                icon.classList.remove('ph-fill', 'ph-heart', 'text-red-500');
+                icon.classList.add('ph-heart', 'text-amber-400');
+            }
+            
+            updateNavCounts();
+        }
+        
+        function addCandleToCart(candleId) {
+            const db = getDB();
+            const candle = db.products.find(p => p.id === candleId);
+            if (candle) {
+                addToCart(candle);
+                updateNavCounts();
+            }
+        }
+        
+        function loadProducts() {
+            const db = getDB();
+            allCandles = db.products || [];
+            const grid = document.getElementById('candles-grid');
+            
+            if (allCandles.length === 0) {
+                grid.innerHTML = '<div class="col-span-full text-center py-10 text-amber-600">No products found.</div>';
+                return;
+            }
+            
+            grid.innerHTML = allCandles.map(c => createCandleCard(c)).join('');
+        }
+        
+        window.addEventListener('dbReady', () => {
+            loadProducts();
+            
+            const buttons = document.querySelectorAll('.filter-btn');
+            const searchInput = document.getElementById('search-input');
+            let currentFilter = 'all';
+            let searchTerm = '';
+            
+            function filterCandles() {
+                const grid = document.getElementById('candles-grid');
+                const filtered = allCandles.filter(c => {
+                    const matchesCategory = currentFilter === 'all' || c.category === currentFilter;
+                    const matchesSearch = c.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                                        c.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                        c.genre.toLowerCase().includes(searchTerm.toLowerCase());
+                    return matchesCategory && matchesSearch;
+                });
+                
+                if (filtered.length === 0) {
+                    grid.innerHTML = '';
+                    document.getElementById('no-results').classList.remove('hidden');
+                } else {
+                    document.getElementById('no-results').classList.add('hidden');
+                    grid.innerHTML = filtered.map(c => createCandleCard(c)).join('');
+                }
+            }
+            
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    buttons.forEach(b => {
+                        b.classList.remove('bg-amber-800', 'text-white');
+                        b.classList.add('bg-amber-100', 'dark:bg-neutral-800', 'text-amber-800', 'dark:text-amber-200');
+                    });
+                    btn.classList.remove('bg-amber-100', 'dark:bg-neutral-800', 'text-amber-800', 'dark:text-amber-200');
+                    btn.classList.add('bg-amber-800', 'text-white');
+                    currentFilter = btn.dataset.filter;
+                    filterCandles();
+                });
+            });
+            
+            searchInput.addEventListener('input', (e) => {
+                searchTerm = e.target.value;
+                filterCandles();
+            });
+        });
+    </script>
+</body>
+</html>
