@@ -9,6 +9,8 @@ This project demonstrates dynamic content rendering using a local JSON file — 
 
 👉 https://yourusername.github.io/soule-candle-website/
 
+---
+
 ## ✨ Features
 
 - 🕯️ Beautiful, clean UI design
