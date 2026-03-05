@@ -32,9 +32,4 @@ This project demonstrates dynamic content rendering using a local JSON file — 
 
 ---
 
-## 📦 Installation
 
-1. Clone the repository:
-
-```bash
-git clone https://github.com/yourusername/soule-candle-website.git
